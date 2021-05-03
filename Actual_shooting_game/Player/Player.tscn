@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/crosshair.png" type="Texture" id=2]
+[ext_resource path="res://Player/RayCast2.gd" type="Script" id=3]
 [ext_resource path="res://Weapons/Gun.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -65,3 +66,8 @@ texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RayCast2" type="RayCast" parent="Head/Camera"]
+enabled = true
+cast_to = Vector3( 0, 0, -10 )
+script = ExtResource( 3 )

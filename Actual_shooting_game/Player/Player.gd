@@ -4,9 +4,10 @@ extends KinematicBody
 var speed = 10
 var acceleration = 20
 var gravity = 15
-var jump = 7
 
-var health = 100
+# Jumps variables
+var jump = 7
+var jump_num = 0
 
 # Sprinting variables
 var sprint_speed = 15
@@ -45,6 +46,12 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 		
+func _process(delta):
+	if is_on_floor():
+		jump_num = 0
+		
+		
+		
 
 # Firing by checking if the raycast is colliding with an enemy
 func fire():
@@ -76,13 +83,22 @@ func _physics_process(delta):
 		fall.y -= gravity * delta
 		
 # Making the player jump
-	if Input.is_action_just_pressed("jump"):
-		fall.y = jump
+	if Input.is_action_pressed("jump") and is_on_floor():
+		if jump_num == 0:
+			fall.y = jump
+			jump_num = 1
+			
+	if Input.is_action_just_pressed("jump") and !is_on_floor():
+		if jump_num == 1:
+			fall.y = jump
+			jump_num = 2
 	
+# Making the player sprint
 	if Input.is_action_pressed("sprint") and Input.is_action_pressed("move_forward"):
 		speed = sprint_speed
 		jump = sprint_jump
 	
+# Moving the player
 	if Input.is_action_pressed("move_forward"):
 		direction -= transform.basis.z
 		
@@ -101,12 +117,9 @@ func _physics_process(delta):
 # Making the movement smoother with linear_interpolate
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta)
 	
-	
-#	if direction != Vector3():
-#		if is_network_master():
+
 	velocity = move_and_slide(velocity, Vector3.UP)
 	move_and_slide(fall, Vector3.UP)
-#			rpc_unreliable("_set_position", global_transform.origin)
 	
 
 
