@@ -1,0 +1,21 @@
+[gd_scene format=2]
+
+[node name="Light" type="Node"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.00397931, 0.999992, 0, -0.999992, 0.00397931, 0, 10000, 0 )
+
+[node name="DirectionalLight2" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -10000, 0 )
+
+[node name="DirectionalLight3" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10000 )
+
+[node name="DirectionalLight4" type="DirectionalLight" parent="."]
+transform = Transform( -0.999493, 0, -0.0318468, 0, 1, 0, 0.0318468, 0, -0.999493, 0, 0, -10000 )
+
+[node name="DirectionalLight5" type="DirectionalLight" parent="."]
+transform = Transform( 0.0115537, 0, -0.999933, 0, 1, 0, 0.999933, 0, 0.0115537, -10000, 0, 0 )
+
+[node name="DirectionalLight6" type="DirectionalLight" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10000, 0, 0 )
