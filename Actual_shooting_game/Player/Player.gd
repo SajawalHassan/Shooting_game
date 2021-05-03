@@ -30,6 +30,9 @@ onready var raycast = $Head/Camera/RayCast
 
 onready var anim_player = $Head/Camera/AnimationPlayer
 
+onready var camera = $Head/Camera
+onready var gun_cam = $Head/Camera/ViewportContainer/Viewport/GunCam
+
 # To set the mouse invisible
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -50,7 +53,7 @@ func _process(delta):
 	if is_on_floor():
 		jump_num = 0
 		
-		
+	gun_cam.global_transform = camera.global_transform
 		
 
 # Firing by checking if the raycast is colliding with an enemy

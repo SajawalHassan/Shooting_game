@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/crosshair.png" type="Texture" id=2]
@@ -8,10 +8,6 @@
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
 height = 1.5
-
-[sub_resource type="CapsuleMesh" id=2]
-radius = 0.5
-mid_height = 1.5
 
 [sub_resource type="Animation" id=3]
 length = 0.1
@@ -35,15 +31,11 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 2 )
-material/0 = null
-
 [node name="Head" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.810853, 0 )
+cull_mask = 1048573
 
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 enabled = true
@@ -53,6 +45,7 @@ cast_to = Vector3( 0, 0, -1000 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, -0.5, -0.349569 )
 
 [node name="Gun" parent="Head/Camera/Hand" instance=ExtResource( 4 )]
+layers = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera"]
 anims/fire = SubResource( 3 )
@@ -71,3 +64,19 @@ __meta__ = {
 enabled = true
 cast_to = Vector3( 0, 0, -10 )
 script = ExtResource( 3 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Head/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Head/Camera/ViewportContainer"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="GunCam" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]
+cull_mask = 2
