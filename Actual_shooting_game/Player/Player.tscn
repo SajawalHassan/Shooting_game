@@ -39,7 +39,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.810853, 0 )
 
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 enabled = true
-cast_to = Vector3( 0, 0, -1000 )
+cast_to = Vector3( 0, 0, -2000 )
 
 [node name="Hand" type="Spatial" parent="Head/Camera"]
 transform = Transform( 0.999962, 0, -0.00872654, 0, 1, 0, 0.00872654, 0, 0.999962, 0.503, -0.321, -0.35 )
@@ -50,6 +50,9 @@ ads_position = Vector3( 0, -0.321, -0.611 )
 
 [node name="Gun" parent="Head/Camera/Hand" instance=ExtResource( 4 )]
 layers = 2
+
+[node name="Muzzle" type="Spatial" parent="Head/Camera/Hand/Gun"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00865328, 0, -0.991569 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera"]
 anims/fire = SubResource( 2 )

@@ -2,9 +2,9 @@ extends Spatial
 
 const ADS_LERP = 20
 
-export var camera_path : NodePath
 var camera : Camera
 
+export var camera_path : NodePath
 export var default_position : Vector3
 export var ads_position : Vector3
 
@@ -21,6 +21,8 @@ func _process(delta):
 		transform.origin = transform.origin.linear_interpolate(ads_position,
 		 ADS_LERP * delta)
 		camera.fov = lerp(camera.fov, fview["ADS"], ADS_LERP * delta)
+		
+		
 		
 	else:
 		transform.origin = transform.origin.linear_interpolate(default_position,

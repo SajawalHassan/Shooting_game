@@ -1,4 +1,4 @@
-extends RigidBody
+extends KinematicBody
 
 var health = 100
 

@@ -1,5 +1,7 @@
 extends KinematicBody
 
+const ADS_SPEED = 5
+
 # Movement variables
 var speed = 10
 var acceleration = 20
@@ -28,14 +30,15 @@ var direction = Vector3()
 var shoot_damage = 40
 
 onready var head = $Head
-
-onready var raycast = $Head/Camera/RayCast
-
-onready var anim_player = $Head/Camera/AnimationPlayer
-
 onready var camera = $Head/Camera
 
+onready var raycast = $Head/Camera/RayCast
+onready var anim_player = $Head/Camera/AnimationPlayer
+
 onready var gun_cam = $Head/Camera/ViewportContainer/Viewport/GunCam
+
+onready var bullet = preload("res://Weapons/Bullet.tscn")
+onready var muzzle = $Head/Camera/Hand/Gun/Muzzle
 
 # To set the mouse invisible
 func _ready():
@@ -48,30 +51,43 @@ func _input(event: InputEvent) -> void:
 		head.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-mouse_pitch), deg2rad(mouse_pitch))
 	
+	if Input.is_action_pressed("ADS_fire"):
+		speed = ADS_SPEED
+		sprint_speed = ADS_SPEED
+		
+	else:
+		speed = 10
+		sprint_speed = 15
 		
 # To exit
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
 		
+# Double jump (mainly)
 func _process(delta):
 	if is_on_floor():
 		jump_num = 0
+		
 
 	gun_cam.global_transform = camera.global_transform
 		
 
 # Firing by checking if the raycast is colliding with an enemy
 func fire():
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_just_pressed("fire"):
 		if !anim_player.is_playing():
 			if raycast.is_colliding():
-				var target = raycast.get_collider()
-				if target.is_in_group("Enemy"):
-					target.health -= shoot_damage
-		anim_player.play("fire")
-	else:
-		anim_player.stop()
+				var b = bullet.instance()
+				muzzle.add_child(b)
+				b.look_at(raycast.get_collision_point(), Vector3.UP)
+				b.shoot = true
+#				var target = raycast.get_collider()
+#				if target.is_in_group("Enemy"):
+#					target.health -= shoot_damage
+				anim_player.play("fire")
+			else:
+				anim_player.stop()
 
 				
 				

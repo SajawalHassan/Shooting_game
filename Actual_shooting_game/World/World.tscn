@@ -130,7 +130,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177139, 1.52898, -27.8102 )
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84547, 1.52898, -27.2788 )
 
-[node name="Wall" type="StaticBody" parent="."]
+[node name="Wall" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8323, 10.6728, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall"]
