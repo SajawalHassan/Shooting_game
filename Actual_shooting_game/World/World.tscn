@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Light/Light.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.345098, 0.713726, 0.760784, 1 )
+albedo_color = Color( 0.101961, 0.345098, 0.376471, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
@@ -22,6 +22,16 @@ material = SubResource( 4 )
 
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.384314, 0.247059, 0.607843, 1 )
+
+[sub_resource type="CubeMesh" id=8]
+material = SubResource( 7 )
+size = Vector3( 0.5, 20, 50 )
+
+[sub_resource type="ConvexPolygonShape" id=9]
+points = PoolVector3Array( -0.25, 10, 25, 0.25, 10, -25, 0.25, 10, 25, -0.25, 10, -25, -0.25, -10, 25, 0.25, -10, -25, 0.25, -10, 25, -0.25, -10, -25, 0.25, 10, 25, -0.25, 10, -25, 0.25, 10, -25, -0.25, 10, 25, 0.25, -10, 25, -0.25, -10, -25, 0.25, -10, -25, -0.25, -10, 25, 0.25, 10, 25, -0.25, -10, 25, -0.25, 10, 25, 0.25, -10, 25, 0.25, 10, -25, -0.25, -10, -25, -0.25, 10, -25, 0.25, -10, -25 )
 
 [node name="World" type="Spatial"]
 
@@ -119,3 +129,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.177139, 1.52898, -27.8102 )
 
 [node name="Enemy3" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.84547, 1.52898, -27.2788 )
+
+[node name="Wall" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8323, 10.6728, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall"]
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall"]
+shape = SubResource( 9 )

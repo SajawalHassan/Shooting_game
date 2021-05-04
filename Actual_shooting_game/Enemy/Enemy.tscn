@@ -14,7 +14,7 @@ mid_height = 1.5
 radius = 0.5
 height = 1.5
 
-[node name="Enemy" type="KinematicBody" groups=[
+[node name="Enemy" type="RigidBody" groups=[
 "Enemy",
 ]]
 script = ExtResource( 1 )

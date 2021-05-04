@@ -13,6 +13,8 @@ var jump_num = 0
 var sprint_speed = 15
 var sprint_jump = 5
 
+var wall_normal
+
 # Mouse variables
 var mouse_sensitivity = 0.09
 var mouse_pitch = 90
@@ -20,6 +22,7 @@ var mouse_pitch = 90
 # Movment Vectors
 var velocity = Vector3()
 var fall = Vector3()
+var direction = Vector3()
 
 # Firing variable
 var shoot_damage = 40
@@ -31,6 +34,7 @@ onready var raycast = $Head/Camera/RayCast
 onready var anim_player = $Head/Camera/AnimationPlayer
 
 onready var camera = $Head/Camera
+
 onready var gun_cam = $Head/Camera/ViewportContainer/Viewport/GunCam
 
 # To set the mouse invisible
@@ -43,6 +47,7 @@ func _input(event: InputEvent) -> void:
 		rotate_y(deg2rad(-event.relative.x * mouse_sensitivity))
 		head.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-mouse_pitch), deg2rad(mouse_pitch))
+	
 		
 # To exit
 func _unhandled_input(event):
@@ -52,7 +57,7 @@ func _unhandled_input(event):
 func _process(delta):
 	if is_on_floor():
 		jump_num = 0
-		
+
 	gun_cam.global_transform = camera.global_transform
 		
 
@@ -77,9 +82,10 @@ remote func _set_position(pos):
 # To move
 func _physics_process(delta):
 	
+#	wall_run()
 	fire()
 	
-	var direction = Vector3()
+	direction = Vector3()
 	
 # Applying gravity
 	if !is_on_floor():
